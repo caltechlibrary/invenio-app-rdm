@@ -228,16 +228,6 @@ export class RDMDepositForm extends Component {
                   </Overridable>
 
                   <Overridable
-                    id="InvenioAppRdm.Deposit.PublicationDateField.container"
-                    fieldPath="metadata.publication_date"
-                  >
-                    <PublicationDateField
-                      required
-                      fieldPath="metadata.publication_date"
-                    />
-                  </Overridable>
-
-                  <Overridable
                     id="InvenioAppRdm.Deposit.CreatorsField.container"
                     vocabularies={this.vocabularies}
                     config={this.config}
@@ -309,8 +299,38 @@ export class RDMDepositForm extends Component {
                       })}
                     />
                   </Overridable>
+
+                <Overridable
+                    id="InvenioAppRdm.Deposit.PublicationDateField.container"
+                    fieldPath="metadata.publication_date"
+                  >
+                    <PublicationDateField
+                      required
+                      fieldPath="metadata.publication_date"
+                    />
+                  </Overridable>
+
                 </AccordionField>
               </Overridable>
+              
+              {!_isEmpty(customFieldsUI) && (
+                <Overridable
+                  id="InvenioAppRdm.Deposit.CustomFields.container"
+                  customFieldsUI={customFieldsUI}
+                >   
+                  <CustomFields
+                    config={customFieldsUI}
+                    templateLoaders={[
+                      (widget) => import(`@templates/custom_fields/${widget}.js`),
+                      (widget) =>
+                        import(`@js/invenio_rdm_records/src/deposit/customFields`),
+                      (widget) => import(`react-invenio-forms`),
+                    ]}
+                    fieldPathPrefix="custom_fields"
+                  />  
+                </Overridable>
+              )}   
+
               <Overridable
                 id="InvenioAppRdm.Deposit.AccordionFieldRecommendedInformation.container"
                 vocabularies={this.vocabularies}
@@ -546,41 +566,6 @@ export class RDMDepositForm extends Component {
                   </Overridable>
                 </AccordionField>
               </Overridable>
-              <Overridable
-                id="InvenioAppRdm.Deposit.AccordionFieldReferences.container"
-                vocabularies={this.vocabularies}
-              >
-                <AccordionField
-                  includesPaths={["metadata.references"]}
-                  active
-                  label={i18next.t("References")}
-                >
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.ReferencesField.container"
-                    fieldPath="metadata.references"
-                    vocabularies={this.vocabularies}
-                  >
-                    <ReferencesField fieldPath="metadata.references" showEmptyValue />
-                  </Overridable>
-                </AccordionField>
-              </Overridable>
-              {!_isEmpty(customFieldsUI) && (
-                <Overridable
-                  id="InvenioAppRdm.Deposit.CustomFields.container"
-                  customFieldsUI={customFieldsUI}
-                >
-                  <CustomFields
-                    config={customFieldsUI}
-                    templateLoaders={[
-                      (widget) => import(`@templates/custom_fields/${widget}.js`),
-                      (widget) =>
-                        import(`@js/invenio_rdm_records/src/deposit/customFields`),
-                      (widget) => import(`react-invenio-forms`),
-                    ]}
-                    fieldPathPrefix="custom_fields"
-                  />
-                </Overridable>
-              )}
             </Grid.Column>
             <Ref innerRef={this.sidebarRef}>
               <Grid.Column
