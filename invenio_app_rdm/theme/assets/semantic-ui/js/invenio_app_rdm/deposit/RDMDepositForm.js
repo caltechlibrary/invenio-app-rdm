@@ -347,7 +347,7 @@ export class RDMDepositForm extends Component {
                     "metadata.publisher",
                   ]}
                   active
-                  label={i18next.t("Recommended information")}
+                  label={i18next.t("Additional metadata")}
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.ContributorsField.container"
@@ -519,6 +519,30 @@ export class RDMDepositForm extends Component {
                   </Overridable>
                 </AccordionField>
               </Overridable>
+
+              <Overridable
+                id="InvenioAppRdm.Deposit.AccordionFieldRelatedWorks.container"
+                vocabularies={this.vocabularies}
+              >
+                <AccordionField
+                  includesPaths={["metadata.related_identifiers"]}
+                  active
+                  label={i18next.t("Related works")}
+                >
+                  <Overridable
+                    id="InvenioAppRdm.Deposit.RelatedWorksField.container"
+                    fieldPath="metadata.related_identifiers"
+                    vocabularies={this.vocabularies}
+                  >
+                    <RelatedWorksField
+                      fieldPath="metadata.related_identifiers"
+                      options={this.vocabularies.metadata.identifiers}
+                      showEmptyValue
+                    />
+                  </Overridable>
+                </AccordionField>
+              </Overridable>
+                
               <Overridable
                 id="InvenioAppRdm.Deposit.AccordionFieldAlternateIdentifiers.container"
                 vocabularies={this.vocabularies}
@@ -544,28 +568,6 @@ export class RDMDepositForm extends Component {
                 </AccordionField>
               </Overridable>
 
-              <Overridable
-                id="InvenioAppRdm.Deposit.AccordionFieldRelatedWorks.container"
-                vocabularies={this.vocabularies}
-              >
-                <AccordionField
-                  includesPaths={["metadata.related_identifiers"]}
-                  active
-                  label={i18next.t("Related works")}
-                >
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.RelatedWorksField.container"
-                    fieldPath="metadata.related_identifiers"
-                    vocabularies={this.vocabularies}
-                  >
-                    <RelatedWorksField
-                      fieldPath="metadata.related_identifiers"
-                      options={this.vocabularies.metadata.identifiers}
-                      showEmptyValue
-                    />
-                  </Overridable>
-                </AccordionField>
-              </Overridable>
             </Grid.Column>
             <Ref innerRef={this.sidebarRef}>
               <Grid.Column
