@@ -211,6 +211,30 @@ export class RDMDepositForm extends Component {
                       schema="creators"
                       autocompleteNames={this.config.autocomplete_names}
                       required
+                      modal={{
+                        addLabel: "Add author",
+                        editLabel: "Edit author",
+                      }}
+                    />
+                  </Overridable>
+                  Overridable
+                    id="InvenioAppRdm.Deposit.ContributorsField.container"
+                    fieldPath="metadata.contributors"
+                    vocabularies={this.vocabularies}
+                    config={this.config}
+                  >
+                    <CreatibutorsField
+                      addButtonLabel={i18next.t("Add contributor")}
+                      label={i18next.t("Contributors")}
+                      labelIcon="user plus"
+                      fieldPath="metadata.contributors"
+                      roleOptions={this.vocabularies.metadata.contributors.role}
+                      schema="contributors"
+                      autocompleteNames={this.config.autocomplete_names}
+                      modal={{
+                        addLabel: "Add contributor",
+                        editLabel: "Edit contributor",
+                      }}
                     />
                   </Overridable>
 
@@ -316,29 +340,8 @@ export class RDMDepositForm extends Component {
                     "metadata.version",
                     "metadata.publisher",
                   ]}
-                  active
                   label={i18next.t("Additional metadata")}
                 >
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.ContributorsField.container"
-                    fieldPath="metadata.contributors"
-                    vocabularies={this.vocabularies}
-                    config={this.config}
-                  >
-                    <CreatibutorsField
-                      addButtonLabel={i18next.t("Add contributor")}
-                      label={i18next.t("Contributors")}
-                      labelIcon="user plus"
-                      fieldPath="metadata.contributors"
-                      roleOptions={this.vocabularies.metadata.contributors.role}
-                      schema="contributors"
-                      autocompleteNames={this.config.autocomplete_names}
-                      modal={{
-                        addLabel: "Add contributor",
-                        editLabel: "Edit contributor",
-                      }}
-                    />
-                  </Overridable>
 
                   <Overridable
                     id="InvenioAppRdm.Deposit.SubjectsField.container"
