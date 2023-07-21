@@ -217,7 +217,7 @@ export class RDMDepositForm extends Component {
                       }}
                     />
                   </Overridable>
-                  Overridable
+                  <Overridable
                     id="InvenioAppRdm.Deposit.ContributorsField.container"
                     fieldPath="metadata.contributors"
                     vocabularies={this.vocabularies}
