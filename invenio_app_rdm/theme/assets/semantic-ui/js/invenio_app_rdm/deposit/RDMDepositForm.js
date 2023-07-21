@@ -122,36 +122,6 @@ export class RDMDepositForm extends Component {
           <Grid className="mt-25">
             <Grid.Column mobile={16} tablet={16} computer={11}>
               <Overridable
-                id="InvenioAppRdm.Deposit.AccordionFieldFiles.container"
-                record={record}
-                config={this.config}
-                noFiles={this.noFiles}
-              >
-                <AccordionField
-                  includesPaths={["files.enabled"]}
-                  active
-                  label={i18next.t("Files")}
-                >
-                  {this.noFiles && record.is_published && (
-                    <div className="text-align-center pb-10">
-                      <em>{i18next.t("The record has no files.")}</em>
-                    </div>
-                  )}
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.FileUploader.container"
-                    record={record}
-                    config={this.config}
-                  >
-                    <FileUploader
-                      isDraftRecord={!record.is_published}
-                      quota={this.config.quota}
-                      decimalSizeDisplay={this.config.decimal_size_display}
-                      showMetadataOnlyToggle={permissions?.can_manage_files}
-                    />
-                  </Overridable>
-                </AccordionField>
-              </Overridable>
-              <Overridable
                 id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.container"
                 config={this.config}
                 record={record}
@@ -234,7 +204,7 @@ export class RDMDepositForm extends Component {
                     fieldPath="metadata.creators"
                   >
                     <CreatibutorsField
-                      label={i18next.t("Creators")}
+                      label={i18next.t("Authors")}
                       labelIcon="user"
                       fieldPath="metadata.creators"
                       roleOptions={this.vocabularies.metadata.creators.role}
@@ -567,7 +537,36 @@ export class RDMDepositForm extends Component {
                   </Overridable>
                 </AccordionField>
               </Overridable>
-
+            <Overridable
+                id="InvenioAppRdm.Deposit.AccordionFieldFiles.container"
+                record={record}
+                config={this.config}
+                noFiles={this.noFiles}
+              >
+                <AccordionField
+                  includesPaths={["files.enabled"]}
+                  active
+                  label={i18next.t("Files")}
+                >
+                  {this.noFiles && record.is_published && (
+                    <div className="text-align-center pb-10">
+                      <em>{i18next.t("The record has no files.")}</em>
+                    </div>
+                  )}
+                  <Overridable
+                    id="InvenioAppRdm.Deposit.FileUploader.container"
+                    record={record}
+                    config={this.config}
+                  >
+                    <FileUploader
+                      isDraftRecord={!record.is_published}
+                      quota={this.config.quota}
+                      decimalSizeDisplay={this.config.decimal_size_display}
+                      showMetadataOnlyToggle={permissions?.can_manage_files}
+                    />
+                  </Overridable>
+                </AccordionField>
+              </Overridable>
             </Grid.Column>
             <Ref innerRef={this.sidebarRef}>
               <Grid.Column
