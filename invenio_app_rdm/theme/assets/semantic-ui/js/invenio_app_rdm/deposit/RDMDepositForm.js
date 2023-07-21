@@ -204,6 +204,7 @@ export class RDMDepositForm extends Component {
                     fieldPath="metadata.creators"
                   >
                     <CreatibutorsField
+                      addButtonLabel={i18next.t("Add author")}
                       label={i18next.t("Authors")}
                       labelIcon="user"
                       fieldPath="metadata.creators"
@@ -246,6 +247,7 @@ export class RDMDepositForm extends Component {
                   >
                     <DescriptionsField
                       fieldPath="metadata.description"
+                      label="Abstract"
                       options={this.vocabularies.metadata.descriptions}
                       recordUI={_get(record, "ui", null)}
                       editorConfig={{
@@ -304,6 +306,13 @@ export class RDMDepositForm extends Component {
                     />
                   </Overridable>
 
+                 <Overridable
+                    id="InvenioAppRdm.Deposit.PublisherField.container"
+                    fieldPath="metadata.publisher"
+                  >
+                    <PublisherField fieldPath="metadata.publisher" />
+                  </Overridable>
+
                 </AccordionField>
               </Overridable>
               
@@ -357,6 +366,25 @@ export class RDMDepositForm extends Component {
                   </Overridable>
 
                   <Overridable
+                    id="InvenioAppRdm.Deposit.DateField.container"
+                    vocabularies={this.vocabularies}
+                    fieldPath="metadata.dates"
+                  >
+                    <DatesField
+                      fieldPath="metadata.dates"
+                      options={this.vocabularies.metadata.dates}
+                      showEmptyValue
+                    />
+                  </Overridable>
+
+                  <Overridable
+                    id="InvenioAppRdm.Deposit.VersionField.container"
+                    fieldPath="metadata.version"
+                  >
+                    <VersionField fieldPath="metadata.version" />
+                  </Overridable>
+
+                   <Overridable
                     id="InvenioAppRdm.Deposit.LanguagesField.container"
                     fieldPath="metadata.languages"
                     record={record}
@@ -376,31 +404,6 @@ export class RDMDepositForm extends Component {
                     />
                   </Overridable>
 
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.DateField.container"
-                    vocabularies={this.vocabularies}
-                    fieldPath="metadata.dates"
-                  >
-                    <DatesField
-                      fieldPath="metadata.dates"
-                      options={this.vocabularies.metadata.dates}
-                      showEmptyValue
-                    />
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.VersionField.container"
-                    fieldPath="metadata.version"
-                  >
-                    <VersionField fieldPath="metadata.version" />
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.PublisherField.container"
-                    fieldPath="metadata.publisher"
-                  >
-                    <PublisherField fieldPath="metadata.publisher" />
-                  </Overridable>
                 </AccordionField>
               </Overridable>
               <Overridable
@@ -409,7 +412,6 @@ export class RDMDepositForm extends Component {
               >
                 <AccordionField
                   includesPaths={["metadata.funding"]}
-                  active
                   label="Funding"
                   ui={this.accordionStyle}
                 >
@@ -499,7 +501,6 @@ export class RDMDepositForm extends Component {
               >
                 <AccordionField
                   includesPaths={["metadata.related_identifiers"]}
-                  active
                   label={i18next.t("Related works")}
                 >
                   <Overridable
@@ -522,7 +523,6 @@ export class RDMDepositForm extends Component {
               >
                 <AccordionField
                   includesPaths={["metadata.identifiers"]}
-                  active
                   label={i18next.t("Alternate identifiers")}
                 >
                   <Overridable
@@ -548,7 +548,6 @@ export class RDMDepositForm extends Component {
               >
                 <AccordionField
                   includesPaths={["files.enabled"]}
-                  active
                   label={i18next.t("Files")}
                 >
                   {this.noFiles && record.is_published && (
