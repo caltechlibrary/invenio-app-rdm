@@ -58,10 +58,20 @@
 
 {% macro show_add_descriptions(add_descriptions) %}
   {% for add_description in add_descriptions %}
-  <section id="additional-description-{{loop.index}}" class="rel-mt-2" aria-label="{{ _( add_description.type.title_l10n ) }}">
-    <h2>{{add_description.type.title_l10n }} <span class="text-muted language">{{ '(' + add_description.lang.title_l10n + ')' if add_description.lang }}</span></h2>
-    <p>{{ add_description.description | sanitize_html() | safe}}</p>
-  </section>
+    <section id="additional-description-{{ loop.index }}" class="rel-mt-2 rich-input-content"
+             aria-label="{{ _( add_description.type.title_l10n ) }}">
+      <h2>{{ add_description.type.title_l10n }} <span
+        class="text-muted language">{{ '(' + add_description.lang.title_l10n + ')' if add_description.lang }}</span>
+      </h2>
+
+      {% if add_description.type.id == "notes" %}
+        <div class="ui message warning">
+          {{ add_description.description | sanitize_html() | safe }}
+        </div>
+      {% else %}
+        {{ add_description.description | sanitize_html() | safe }}
+      {% endif %}
+    </section>
   {% endfor %}
 {% endmacro %}
 

@@ -250,20 +250,6 @@ export class RDMDepositForm extends Component {
                       label="Abstract"
                       options={this.vocabularies.metadata.descriptions}
                       recordUI={_get(record, "ui", null)}
-                      editorConfig={{
-                        removePlugins: [
-                          "Image",
-                          "ImageCaption",
-                          "ImageStyle",
-                          "ImageToolbar",
-                          "ImageUpload",
-                          "MediaEmbed",
-                          "Table",
-                          "TableToolbar",
-                          "TableProperties",
-                          "TableCellProperties",
-                        ],
-                      }}
                     />
                   </Overridable>
 
