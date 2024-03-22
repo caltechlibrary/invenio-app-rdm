@@ -100,6 +100,12 @@ export class RecordCitationField extends Component {
       };
     });
 
+    // convert links in text to clickable links
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const citationWithLinks = citation.replace(urlRegex, (url) => {
+      return `<a href="${url}" target="_blank">${url}</a>`;
+    });
+
     return (
       <Grid className="record-citation pt-10 pb-10 m-0">
         <Grid.Row verticalAlign="middle" className="relaxed">
@@ -136,7 +142,11 @@ export class RecordCitationField extends Component {
         <Grid.Row verticalAlign="bottom">
           <Grid.Column computer={12} className="p-0">
             <div id="citation-text" className="wrap-overflowing-text">
-              {loading ? this.placeholderLoader() : citation}
+               {loading ? (
+                 this.placeholderLoader()
+                ) : (
+                  <div dangerouslySetInnerHTML={{ __html: citationWithLinks }} />
+               )}
             </div>
           </Grid.Column>
 
