@@ -8,6 +8,7 @@
 
 import axios from "axios";
 import _debounce from "lodash/debounce";
+import _escape from "lodash/escape";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Header, Placeholder, Grid, Dropdown, Message } from "semantic-ui-react";
@@ -100,9 +101,10 @@ export class RecordCitationField extends Component {
       };
     });
 
-    // convert links in text to clickable links
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const citationWithLinks = citation.replace(urlRegex, (url) => {
+    // convert links in text to clickable links (ignoring punctuations at the end)
+    const escapedCitation = _escape(citation); // escape html characters
+    const urlRegex = /\bhttps?:\/\/\S+?(?=[.,?!;]*\s|$)/g;
+    const urlizedCitation = escapedCitation.replace(urlRegex, (url) => {
       return `<a href="${url}" target="_blank">${url}</a>`;
     });
 
@@ -145,7 +147,7 @@ export class RecordCitationField extends Component {
                {loading ? (
                  this.placeholderLoader()
                 ) : (
-                  <div dangerouslySetInnerHTML={{ __html: citationWithLinks }} />
+                  <div dangerouslySetInnerHTML={{ __html: urlizedCitation }} />
                )}
             </div>
           </Grid.Column>
