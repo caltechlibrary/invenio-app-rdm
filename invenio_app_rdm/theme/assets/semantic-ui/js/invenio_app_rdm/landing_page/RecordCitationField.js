@@ -103,7 +103,7 @@ export class RecordCitationField extends Component {
 
     // convert links in text to clickable links (ignoring punctuations at the end)
     const escapedCitation = _escape(citation); // escape html characters
-    const urlRegex = /\bhttps?:\/\/\S+?(?=[.,?!;]*\s|$)/g;
+    const urlRegex = /(https?:\/\/[^\s,;]+(?=[^\s.,;]*\S))/g;
     const urlizedCitation = escapedCitation.replace(urlRegex, (url) => {
       return `<a href="${url}" target="_blank">${url}</a>`;
     });
