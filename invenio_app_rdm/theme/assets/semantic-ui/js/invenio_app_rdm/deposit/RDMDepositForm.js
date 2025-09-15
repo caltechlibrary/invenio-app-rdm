@@ -262,13 +262,18 @@ export class RDMDepositForm extends Component {
                       fieldPath="metadata.creators"
                     >
                       <CreatibutorsField
-                        label={i18next.t("Creators")}
+                        label={i18next.t("Authors")}
+                        addButtonLabel={i18next.t("Add author")}
                         labelIcon="user"
                         fieldPath="metadata.creators"
                         roleOptions={this.vocabularies.metadata.creators.role}
                         schema="creators"
                         autocompleteNames={this.config.autocomplete_names}
                         required
+                        modal={{
+                        addLabel: "Add author",
+                        editLabel: "Edit author",
+                        }}
                       />
                     </Overridable>
 
@@ -277,6 +282,7 @@ export class RDMDepositForm extends Component {
                       record={record}
                       vocabularies={this.vocabularies}
                       fieldPath="metadata.description"
+                      label="Abstract"
                     >
                       <DescriptionsField
                         fieldPath="metadata.description"
@@ -343,6 +349,26 @@ export class RDMDepositForm extends Component {
                     />
                   </AccordionField>
                 </Overridable>
+                {!_isEmpty(customFieldsUI) && (
+                  <Overridable
+                    id="InvenioAppRdm.Deposit.CustomFields.container"
+                    record={record}
+                    customFieldsUI={customFieldsUI}
+                  >
+                    <CustomFields
+                      config={customFieldsUI}
+                      record={record}
+                      templateLoaders={[
+                        (widget) => import(`@templates/custom_fields/${widget}.js`),
+                        (widget) =>
+                          import(`@js/invenio_rdm_records/src/deposit/customFields`),
+                        (widget) => import(`react-invenio-forms`),
+                      ]}
+                      fieldPathPrefix="custom_fields"
+                      severityChecks={this.severityChecks}
+                    />
+                  </Overridable>
+                )}
                 <Overridable
                   id="InvenioAppRdm.Deposit.BasicInformation.after.container"
                   record={record}
@@ -371,7 +397,7 @@ export class RDMDepositForm extends Component {
                       this.sectionsConfig["recommended-information-section"]
                     }
                     severityChecks={this.severityChecks}
-                    label={i18next.t("Recommended information")}
+                    label={i18next.t("Additional metadata")}
                     id="recommended-information-section"
                   >
                     <Overridable
@@ -645,26 +671,6 @@ export class RDMDepositForm extends Component {
                   </AccordionField>
                 </Overridable>
                 </Overridable>
-                {!_isEmpty(customFieldsUI) && (
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.CustomFields.container"
-                    record={record}
-                    customFieldsUI={customFieldsUI}
-                  >
-                    <CustomFields
-                      config={customFieldsUI}
-                      record={record}
-                      templateLoaders={[
-                        (widget) => import(`@templates/custom_fields/${widget}.js`),
-                        (widget) =>
-                          import(`@js/invenio_rdm_records/src/deposit/customFields`),
-                        (widget) => import(`react-invenio-forms`),
-                      ]}
-                      fieldPathPrefix="custom_fields"
-                      severityChecks={this.severityChecks}
-                    />
-                  </Overridable>
-                )}
               </Grid.Column>
               <Ref innerRef={this.sidebarRef}>
                 <Grid.Column
@@ -776,7 +782,7 @@ RDMDepositForm.propTypes = {
 };
 
 RDMDepositForm.defaultProps = {
-  preselectedCommunity: "c9531a11-3fc2-4b8f-b2eb-f810314dd09e",
+  preselectedCommunity: undefined,
   permissions: null,
   files: null,
   filesLocked: false,
