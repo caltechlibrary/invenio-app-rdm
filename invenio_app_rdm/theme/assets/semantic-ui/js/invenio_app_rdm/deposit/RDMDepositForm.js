@@ -174,44 +174,6 @@ export class RDMDepositForm extends Component {
             <Grid className="mt-25">
               <Grid.Column mobile={16} tablet={16} computer={11}>
                 <Overridable
-                  id="InvenioAppRdm.Deposit.AccordionFieldFiles.container"
-                  record={record}
-                  config={this.config}
-                  noFiles={this.noFiles}
-                >
-                  <AccordionField
-                    includesPaths={this.sectionsConfig["files-section"]}
-                    severityChecks={this.severityChecks}
-                    active
-                    label={i18next.t("Files")}
-                    id="files-section"
-                  >
-                    {this.noFiles && record.is_published && (
-                      <div className="text-align-center pb-10">
-                        <em>{i18next.t("The record has no files.")}</em>
-                      </div>
-                    )}
-                    <Overridable
-                      id="InvenioAppRdm.Deposit.FileUploader.container"
-                      record={record}
-                      config={this.config}
-                      permissions={permissions}
-                      filesLocked={filesLocked}
-                      allowEmptyFiles={allowEmptyFiles}
-                    >
-                      <UploaderField
-                        isDraftRecord={!record.is_published}
-                        quota={this.config.quota}
-                        decimalSizeDisplay={this.config.decimal_size_display}
-                        showMetadataOnlyToggle={permissions?.can_manage_files}
-                        allowEmptyFiles={allowEmptyFiles}
-                        filesLocked={filesLocked}
-                        fileUploadConcurrency={config.fileUploadConcurrency}
-                      />
-                    </Overridable>
-                  </AccordionField>
-                </Overridable>
-                <Overridable
                   id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.container"
                   config={this.config}
                   record={record}
@@ -644,21 +606,44 @@ export class RDMDepositForm extends Component {
                   id="InvenioAppRdm.Deposit.AccordionFieldReferences.container"
                   vocabularies={this.vocabularies}
                 >
+                  <Overridable
+                  id="InvenioAppRdm.Deposit.AccordionFieldFiles.container"
+                  record={record}
+                  config={this.config}
+                  noFiles={this.noFiles}
+                >
                   <AccordionField
-                    includesPaths={this.sectionsConfig["references-section"]}
+                    includesPaths={this.sectionsConfig["files-section"]}
                     severityChecks={this.severityChecks}
                     active
-                    label={i18next.t("References")}
-                    id="references-section"
+                    label={i18next.t("Files")}
+                    id="files-section"
                   >
+                    {this.noFiles && record.is_published && (
+                      <div className="text-align-center pb-10">
+                        <em>{i18next.t("The record has no files.")}</em>
+                      </div>
+                    )}
                     <Overridable
-                      id="InvenioAppRdm.Deposit.ReferencesField.container"
-                      fieldPath="metadata.references"
-                      vocabularies={this.vocabularies}
+                      id="InvenioAppRdm.Deposit.FileUploader.container"
+                      record={record}
+                      config={this.config}
+                      permissions={permissions}
+                      filesLocked={filesLocked}
+                      allowEmptyFiles={allowEmptyFiles}
                     >
-                      <ReferencesField fieldPath="metadata.references" showEmptyValue />
+                      <UploaderField
+                        isDraftRecord={!record.is_published}
+                        quota={this.config.quota}
+                        decimalSizeDisplay={this.config.decimal_size_display}
+                        showMetadataOnlyToggle={permissions?.can_manage_files}
+                        allowEmptyFiles={allowEmptyFiles}
+                        filesLocked={filesLocked}
+                        fileUploadConcurrency={config.fileUploadConcurrency}
+                      />
                     </Overridable>
                   </AccordionField>
+                </Overridable>
                 </Overridable>
                 {!_isEmpty(customFieldsUI) && (
                   <Overridable
@@ -791,7 +776,7 @@ RDMDepositForm.propTypes = {
 };
 
 RDMDepositForm.defaultProps = {
-  preselectedCommunity: undefined,
+  preselectedCommunity: "c9531a11-3fc2-4b8f-b2eb-f810314dd09e",
   permissions: null,
   files: null,
   filesLocked: false,
