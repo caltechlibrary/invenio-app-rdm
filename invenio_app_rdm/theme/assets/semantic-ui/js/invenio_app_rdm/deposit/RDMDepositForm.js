@@ -275,7 +275,7 @@ export class RDMDepositForm extends Component {
                     >
                       <CreatibutorsField
                         addButtonLabel={i18next.t("Add contributor")}
-                        label={i18next.t("Contributors")}
+                        label={i18next.t("Contributors Other")}
                         labelIcon="user plus"
                         fieldPath="metadata.contributors"
                         roleOptions={this.vocabularies.metadata.contributors.role}
