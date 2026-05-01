@@ -11,6 +11,10 @@
 Changes
 =======
 
+Version v13.1.2 (released 2026-03-01)
+
+- revert: fix: using app locale for citations * app was using navigator.language
+
 Version v13.1.1 (released 2026-03-01)
 
 - frontpage: Add aria-label to 'More' search button
