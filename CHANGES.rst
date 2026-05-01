@@ -11,6 +11,12 @@
 Changes
 =======
 
+Version v13.1.1 (released 2026-03-01)
+
+- frontpage: Add aria-label to 'More' search button
+- fix: using app locale for citations * app was using navigator.language
+- Fix to display latex symbols correctly in homepage
+
 Version v13.1.0 (released 2026-03-27)
 
 - feat(requests): backport request view function changes for reviewers
